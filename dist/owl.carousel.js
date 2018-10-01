@@ -872,9 +872,15 @@
 
 			this._drag.direction = direction;
 
-			if (Math.abs(delta.x) > 3 || new Date().getTime() - this._drag.time > 300) {
-				this._drag.target.one('click.owl.core', function() { return false; });
-			}
+			// Awaiting PR Approval or Fix
+			// Issue - https://github.com/OwlCarousel2/OwlCarousel2/issues/1864
+			// PR - https://github.com/OwlCarousel2/OwlCarousel2/pull/2447
+			// if (Math.abs(delta.x) > 3 || new Date().getTime() - this._drag.time > 300) {
+			if ((Math.abs(delta.x) > 3 || new Date().getTime() - this._drag.time > 300) && event.type === 'mouseup') {
+                this._drag.target.one('click.owl.core', function() {
+                    return false;
+                });
+            }
 		}
 
 		if (!this.is('dragging')) {
